@@ -1,33 +1,31 @@
 import pandas as pd
 
-# Sample data for demonstration
 data = {
-    'location': ['Location_A', 'Location_B', 'Location_A', 'Location_C', 'Location_B', 'Location_C', 'Location_A'],
-    'listing_price': [500000, 700000, 600000, 800000, 750000, 900000, 550000],
-    'bedrooms': [3, 4, 3, 5, 6, 4, 5],
-    'area': [1200, 1500, 1300, 1800, 2000, 1600, 1400]
+    'property_id': [1, 2, 3, 4, 5],
+    'location': ['City A', 'City B', 'City A', 'City C', 'City B'],
+    'number_of_bedrooms': [3, 4, 5, 2, 6],
+    'area_sqft': [1500, 1800, 2200, 1200, 2500],
+    'listing_price': [250000, 300000, 350000, 200000, 400000]
 }
 
-# Creating the DataFrame from the sample data
+# Create the DataFrame
 property_data = pd.DataFrame(data)
 
-def main():
-    # 1. Average listing price of properties in each location
-    average_listing_price = property_data.groupby('location')['listing_price'].mean()
-    print("Average Listing Price of Properties in Each Location:")
-    print(average_listing_price)
-    print()
+# 1. The average listing price of properties in each location.
+average_price_by_location = property_data.groupby('location')['listing_price'].mean()
 
-    # 2. Number of properties with more than four bedrooms
-    properties_with_more_than_four_bedrooms = property_data[property_data['bedrooms'] > 4]
-    number_of_properties_with_more_than_four_bedrooms = properties_with_more_than_four_bedrooms.shape[0]
-    print("Number of Properties with More Than Four Bedrooms:", number_of_properties_with_more_than_four_bedrooms)
-    print()
+# 2. The number of properties with more than four bedrooms.
+properties_with_more_than_four_bedrooms = property_data[property_data['number_of_bedrooms'] > 4]
+num_properties_more_than_four_bedrooms = len(properties_with_more_than_four_bedrooms)
 
-    # 3. Property with the largest area
-    property_with_largest_area = property_data.loc[property_data['area'].idxmax()]
-    print("Property with the Largest Area:")
-    print(property_with_largest_area)
+# 3. The property with the largest area.
+property_with_largest_area = property_data[property_data['area_sqft'] == property_data['area_sqft'].max()]
 
-if __name__ == "__main__":
-    main()
+print("Average listing price of properties in each location:")
+print(average_price_by_location)
+
+print("Number of properties with more than four bedrooms:")
+print(num_properties_more_than_four_bedrooms)
+
+print("Property with the largest area:")
+print(property_with_largest_area)
